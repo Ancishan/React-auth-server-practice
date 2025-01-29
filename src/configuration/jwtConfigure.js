@@ -1,9 +1,12 @@
+require('dotenv').config();
 
+const secretKey = process.env.JWT_SECRET; // Use the correct key name
 
-const crypto = require('crypto');
-
-const secretKey = crypto.randomBytes(32) .toString('hex');
-
-module.exports = {
-    secretKey : secretKey
+if (!secretKey) {
+    console.error("❌ JWT Secret Key is missing!");
+    process.exit(1); // Stop the server if secretKey is missing
 }
+
+console.log("✅ JWT Secret Key Loaded:", secretKey); 
+
+module.exports = { secretKey };
